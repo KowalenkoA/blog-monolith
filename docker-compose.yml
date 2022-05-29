@@ -1,0 +1,53 @@
+version: "3.4"
+
+services:
+  main:
+    init: true
+    image: node:16.14.2-alpine
+    command: ['npm', 'run', 'start:dev']
+    networks:
+      - blog_net
+    ports:
+      - 3108:3108
+    restart: always
+    working_dir: /usr/app
+    volumes:
+      - .:/usr/app
+    environment:
+      NODE_ENV: development
+      APP__HTTP_PORT: 3108
+      APP__HTTP_TIMEOUT: 10000
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "1"
+  
+  postgres-db:
+    image: postgres:13.3
+    environment:
+      POSTGRES_DB: "blog"
+      POSTGRES_USER: "bloguser"
+      POSTGRES_PASSWORD: "qwebloguser"
+    restart: always
+    ports:
+      - "5435:5432"
+    networks:
+      - blog_net
+
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: root@mail.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+    networks:
+      - blog_net
+    
+networks:
+  blog_net:
+    driver: bridge
+    name: blog_net
