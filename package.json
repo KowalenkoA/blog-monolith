@@ -1,6 +1,6 @@
 {
   "name": "pet-blog",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "",
   "author": "BadPenguiN",
   "private": true,
@@ -37,6 +37,7 @@
     "@nestjs/throttler": "^4.0.0",
     "@nestjs/typeorm": "^9.0.1",
     "@types/validator": "^13.7.17",
+    "bcryptjs": "^2.4.3",
     "bunyan": "^1.8.15",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
@@ -51,6 +52,7 @@
     "@nestjs/cli": "^9.4.2",
     "@nestjs/schematics": "^9.1.0",
     "@nestjs/testing": "^9.4.0",
+    "@types/bcryptjs": "^2.4.2",
     "@types/bunyan": "^1.8.8",
     "@types/express": "^4.17.17",
     "@types/jest": "^29.5.1",
