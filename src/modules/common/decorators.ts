@@ -1,9 +1,9 @@
 import { ExecutionContext, applyDecorators, createParamDecorator } from "@nestjs/common";
-import { RequestWithIdUser } from "./types";
+import { RequestWithUserData } from "./types";
 import { Throttle } from "@nestjs/throttler";
 
 export const IdUser = createParamDecorator((data: unknown, ctx: ExecutionContext) => {
-    const req = ctx.switchToHttp().getRequest<Request>() as unknown as RequestWithIdUser;
+    const req = ctx.switchToHttp().getRequest<Request>() as unknown as RequestWithUserData;
     return req.idUser;
   });
 

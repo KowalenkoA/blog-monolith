@@ -3,7 +3,7 @@ version: "3.4"
 services:
   main:
     init: true
-    image: node:16.14.2-alpine
+    image: node:18.16.0-alpine
     command: ['npm', 'run', 'start:dev']
     networks:
       - blog_net

@@ -1,3 +1,3 @@
 import { UserEntity } from "../../components/users/domain/entities/user.entity";
 
-export type RequestWithIdUser = Request & { idUser: UserEntity['id'] };
+export type RequestWithUserData = Request & { idUser: UserEntity['id'], email: UserEntity['email'] };

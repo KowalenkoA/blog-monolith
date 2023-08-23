@@ -1,4 +1,4 @@
-import { Body, Controller, Inject, Put, Post, Req } from '@nestjs/common';
+import { Body, Controller, Inject, Put, Get } from '@nestjs/common';
 import { UserUpdateDto } from './domain/dto/user.update.dto';
 import { UserEntity } from './domain/entities/user.entity';
 import { UserUseCaseInterface } from './domain/ports/in/user.useCase';
@@ -13,12 +13,13 @@ export class UserController {
     private readonly userService: UserUseCaseInterface,
   ) {}
 
-  @Post('/me')
+  @Get('/me')
   async me(@IdUser() idUser: UserEntity['id']): Promise<Partial<UserEntity>> {
     const { id, email, createdAt, role, username } =
       await this.userService.getOne({
         id: idUser,
       });
+
     return { id, email, createdAt, role, username };
   }
 

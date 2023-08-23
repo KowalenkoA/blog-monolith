@@ -1,15 +1,16 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { JwtService } from '@nestjs/jwt';
 import { IS_PUBLIC_ROUTE } from '../common/constants';
 import { AuthUnauthorizedException } from '../../components/auth/auth.exception';
 import { JwtConfig } from './jwt.config';
+import { JwtService } from '@nestjs/jwt';
+import { AuthConfirmToken } from '../../components/auth/domain/auth.entity';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
   constructor(
-    private readonly config: JwtConfig,
     private readonly jwtService: JwtService,
+    private readonly config: JwtConfig,
     private readonly reflector: Reflector,
   ) {}
 
@@ -29,10 +30,14 @@ export class JwtAuthGuard implements CanActivate {
       const token = authHeader.split(' ')[1];
 
       if (bearer !== 'Bearer' || !token) {
-        throw new AuthUnauthorizedException();
+        throw new AuthUnauthorizedException({ authHeader });
       }
 
-      req.user = await this.jwtService.verifyAsync(token, { secret: this.config.authPrivateKey });
+      const userData: AuthConfirmToken = await this.jwtService.verifyAsync(token, { secret: this.config.authPrivateKey });
+      const { id, email } = userData;
+
+      req.idUser = id;
+      req.email = email;
 
       return true;
     } catch (error) {

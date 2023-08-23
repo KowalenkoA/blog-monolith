@@ -15,7 +15,7 @@ export class JwtAdapter implements JwtPort {
   }
 
   async getAccessToken(userEntity: UserEntity): Promise<string> {
-    const payload = {
+    const payload: AuthConfirmToken = {
       email: userEntity.email,
       id: userEntity.id,
     };
@@ -27,7 +27,7 @@ export class JwtAdapter implements JwtPort {
   }
 
   async getRefreshToken(userEntity: UserEntity): Promise<string> {
-    const payload = {
+    const payload: AuthConfirmToken = {
       email: userEntity.email,
       id: userEntity.id,
     };

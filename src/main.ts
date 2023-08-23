@@ -24,7 +24,7 @@ async function bootstrap() {
 
   app.useGlobalFilters(new HttpExceptionFilter(loggerService));
 
-  app.useGlobalGuards(new JwtAuthGuard(app.get(JwtService), app.get(Reflector), app.get(JwtConfig)));
+  app.useGlobalGuards(new JwtAuthGuard(app.get(JwtService), app.get(JwtConfig), app.get(Reflector)));
   
   await app.listen(port);
 }
